@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farm2Table - Fresh From Farms</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f8f1;
+    color: #333;
+}
+
+header {
+    background: #246b45;
+    color: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #d7f5a5;
+}
+
+.hero {
+    background: linear-gradient(90deg, #246b45, #77a95a);
+    color: white;
+    text-align: center;
+    padding: 85px 20px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.btn {
+    background: #f5c542;
+    color: #222;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #e8ad17;
+}
+
+section {
+    padding: 45px 7%;
+}
+
+.section-title {
+    text-align: center;
+    color: #246b45;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.feature-card {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #ddd;
+}
+
+.feature-card h3 {
+    color: #246b45;
+    margin-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.controls input,
+.controls select {
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 12px #ddd;
+}
+
+.product-card .emoji {
+    font-size: 65px;
+    margin-bottom: 12px;
+}
+
+.product-card h3 {
+    color: #246b45;
+    margin-bottom: 8px;
+}
+
+.price {
+    font-size: 19px;
+    font-weight: bold;
+    color: #df8b16;
+    margin: 12px;
+}
+
+.product-card button {
+    background: #246b45;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-card button:hover {
+    background: #17482d;
+}
+
+.about {
+    background: #e5f0df;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.cart-box {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #ddd;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    gap: 10px;
+    align-items: center;
+}
+
+.cart-item button {
+    background: #d9534f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.form-box {
+    background: white;
+    max-width: 600px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #ddd;
+}
+
+.form-box input,
+.form-box textarea,
+.form-box select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-box button {
+    margin-top: 10px;
+}
+
+.dashboard {
+    background: #e5f0df;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+.dashboard-card button {
+    padding: 8px 14px;
+    background: #246b45;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+footer {
+    background: #17482d;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media(max-width:600px) {
+    header {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    nav {
+        text-align: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🌱 Farm2Table</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#cart">Cart 🛒</a>
+        <a href="#login">Login</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1>Fresh From Farm To Your Table</h1>
+    <p>Buy fresh vegetables and fruits directly from farmers.</p>
+
+    <button class="btn"
+    onclick="document.getElementById('products').scrollIntoView()">
+        Shop Now
+    </button>
+</section>
+
+<section>
+    <h2 class="section-title">Why Choose Farm2Table?</h2>
+
+    <div class="features">
+        <div class="feature-card">
+            <h3>🌿 Fresh Products</h3>
+            <p>Fresh vegetables and fruits directly from farms.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>👨‍🌾 Support Farmers</h3>
+            <p>Help local farmers sell their products.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>💰 Fair Prices</h3>
+            <p>Affordable prices without middlemen.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>🚚 Easy Shopping</h3>
+            <p>Simple and convenient online shopping.</p>
+        </div>
+    </div>
+</section>
+
+<section id="products">
+    <h2 class="section-title">Our Fresh Products</h2>
+
+    <div class="controls">
+        <input type="text" id="search"
+        placeholder="Search products..."
+        oninput="displayProducts()">
+
+        <select id="category" onchange="displayProducts()">
+            <option value="All">All Categories</option>
+            <option value="Vegetables">Vegetables</option>
+            <option value="Fruits">Fruits</option>
+            <option value="Grains">Grains</option>
+        </select>
+
+        <select id="sort" onchange="displayProducts()">
+            <option value="default">Sort Products</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+        </select>
+    </div>
+
+    <div class="products" id="productList"></div>
+</section>
+
+<section class="about" id="about">
+    <h2 class="section-title">About Farm2Table</h2>
+
+    <p>
+        Farm2Table is an online agricultural marketplace that
+        connects farmers directly with customers. Our platform
+        helps farmers sell fresh products and allows customers
+        to purchase quality food at reasonable prices.
+        We aim to reduce middlemen and promote sustainable
+        agriculture.
+    </p>
+</section>
+
+<section id="cart">
+    <h2 class="section-title">Shopping Cart</h2>
+
+    <div class="cart-box">
+        <div id="cartItems">Your cart is empty.</div>
+
+        <h3 id="total">Total: ₹0</h3>
+
+        <br>
+
+        <button class="btn" onclick="checkout()">
+            Place Order
+        </button>
+    </div>
+</section>
+
+<section id="login">
+    <h2 class="section-title">User Login</h2>
+
+    <div class="form-box">
+        <input type="text" id="userName"
+        placeholder="Enter your name">
+
+        <select id="userRole">
+            <option value="Customer">Customer</option>
+            <option value="Farmer">Farmer</option>
+        </select>
+
+        <button class="btn" onclick="loginUser()">
+            Login
+        </button>
+
+        <p id="loginMessage"></p>
+    </div>
+</section>
+
+<section id="farmer" class="dashboard hidden">
+    <h2 class="section-title">Farmer Dashboard</h2>
+
+    <div class="form-box">
+        <h3>Add New Product</h3>
+
+        <input type="text" id="newName"
+        placeholder="Product Name">
+
+        <input type="number" id="newPrice"
+        placeholder="Price per kg">
+
+        <select id="newCategory">
+            <option value="Vegetables">Vegetables</option>
+            <option value="Fruits">Fruits</option>
+            <option value="Grains">Grains</option>
+        </select>
+
+        <input type="text" id="newEmoji"
+        placeholder="Product Emoji">
+
+        <button class="btn" onclick="addProduct()">
+            Add Product
+        </button>
+    </div>
+
+    <div class="form-box">
+        <h3>Manage Products</h3>
+        <div id="farmerProducts"></div>
+    </div>
+</section>
+
+<section id="orders">
+    <h2 class="section-title">My Orders</h2>
+    <div id="orderList"></div>
+</section>
+
+<section id="contact">
+    <h2 class="section-title">Contact Us</h2>
+
+    <div class="form-box">
+        <input type="text" id="contactName"
+        placeholder="Your Name">
+
+        <input type="email" id="contactEmail"
+        placeholder="Your Email">
+
+        <textarea id="contactMessage"
+        placeholder="Enter your message"></textarea>
+
+        <button class="btn" onclick="sendMessage()">
+            Send Message
+        </button>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Farm2Table | Freshness Delivered From Farms</p>
+    <p>Connecting Farmers and Customers</p>
+</footer>
+
+<script>
+
+// PRODUCT DATA
+
+let products = JSON.parse(
+    localStorage.getItem("products")
+) || [
+    {id:1,name:"Tomato",price:30,category:"Vegetables",emoji:"🍅"},
+    {id:2,name:"Potato",price:25,category:"Vegetables",emoji:"🥔"},
+    {id:3,name:"Carrot",price:40,category:"Vegetables",emoji:"🥕"},
+    {id:4,name:"Onion",price:35,category:"Vegetables",emoji:"🧅"},
+    {id:5,name:"Apple",price:120,category:"Fruits",emoji:"🍎"},
+    {id:6,name:"Banana",price:50,category:"Fruits",emoji:"🍌"},
+    {id:7,name:"Mango",price:80,category:"Fruits",emoji:"🥭"},
+    {id:8,name:"Orange",price:60,category:"Fruits",emoji:"🍊"},
+    {id:9,name:"Rice",price:55,category:"Grains",emoji:"🌾"},
+    {id:10,name:"Wheat",price:45,category:"Grains",emoji:"🌾"}
+];
+
+// CART DATA
+
+let cart = JSON.parse(
+    localStorage.getItem("cart")
+) || [];
+
+// ORDER DATA
+
+let orders = JSON.parse(
+    localStorage.getItem("orders")
+) || [];
+
+// CURRENT USER
+
+let currentUser = JSON.parse(
+    localStorage.getItem("currentUser")
+) || null;
+
+
+// SAVE DATA
+
+function saveData() {
+    localStorage.setItem("products",JSON.stringify(products));
+    localStorage.setItem("cart",JSON.stringify(cart));
+    localStorage.setItem("orders",JSON.stringify(orders));
+    localStorage.setItem("currentUser",JSON.stringify(currentUser));
+}
+
+
+// DISPLAY PRODUCTS
+
+function displayProducts() {
+
+    let search = document.getElementById("search").value.toLowerCase();
+    let category = document.getElementById("category").value;
+    let sort = document.getElementById("sort").value;
+
+    let filtered = products.filter(function(product) {
+
+        let matchName = product.name.toLowerCase().includes(search);
+
+        let matchCategory =
+            category === "All" || product.category === category;
+
+        return matchName && matchCategory;
+    });
+
+    if(sort === "low") {
+        filtered.sort((a,b) => a.price - b.price);
+    }
+
+    if(sort === "high") {
+        filtered.sort((a,b) => b.price - a.price);
+    }
+
+    let output = "";
+
+    filtered.forEach(function(product) {
+
+        output += `
+            <div class="product-card">
+
+                <div class="emoji">${product.emoji}</div>
+
+                <h3>${product.name}</h3>
+
+                <p>Category: ${product.category}</p>
+
+                <p class="price">₹${product.price} / kg</p>
+
+                <button onclick="addToCart(${product.id})">
+                    Add to Cart
+                </button>
+
+            </div>
+        `;
+    });
+
+    if(filtered.length === 0) {
+        output = "<p>No products found.</p>";
+    }
+
+    document.getElementById("productList").innerHTML = output;
+}
+
+
+// ADD TO CART
+
+function addToCart(id) {
+
+    let product = products.find(p => p.id === id);
+
+    if(!product) return;
+
+    let existing = cart.find(item => item.id === id);
+
+    if(existing) {
+        existing.quantity++;
+    } else {
+        cart.push({
+            id:product.id,
+            name:product.name,
+            price:product.price,
+            quantity:1
+        });
+    }
+
+    saveData();
+    displayCart();
+
+    alert(product.name + " added to cart!");
+}
+
+
+// DISPLAY CART
+
+function displayCart() {
+
+    let output = "";
+    let total = 0;
+
+    if(cart.length === 0) {
+        output = "Your cart is empty.";
+    }
+
+    cart.forEach(function(item,index) {
+
+        let amount = item.price * item.quantity;
+        total += amount;
+
+        output += `
+            <div class="cart-item">
+
+                <span>${item.name}</span>
+
+                <span>₹${item.price}</span>
+
+                <span>
+                    <button onclick="changeQuantity(${index},-1)">-</button>
+                    ${item.quantity}
+                    <button onclick="changeQuantity(${index},1)">+</button>
+                </span>
+
+                <span>₹${amount}</span>
+
+                <button onclick="removeCart(${index})">
+                    Remove
+                </button>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("cartItems").innerHTML = output;
+    document.getElementById("total").innerText = "Total: ₹" + total;
+}
+
+
+// CHANGE QUANTITY
+
+function changeQuantity(index,change) {
+
+    cart[index].quantity += change;
+
+    if(cart[index].quantity <= 0) {
+        cart.splice(index,1);
+    }
+
+    saveData();
+    displayCart();
+}
+
+
+// REMOVE CART ITEM
+
+function removeCart(index) {
+
+    cart.splice(index,1);
+
+    saveData();
+    displayCart();
+}
+
+
+// CHECKOUT
+
+function checkout() {
+
+    if(!currentUser) {
+        alert("Please login before placing an order.");
+        document.getElementById("login").scrollIntoView();
+        return;
+    }
+
+    if(cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    let total = cart.reduce(function(sum,item) {
+        return sum + item.price * item.quantity;
+    },0);
+
+    let order = {
+        id:Date.now(),
+        customer:currentUser.name,
+        items:[...cart],
+        total:total,
+        status:"Order Placed",
+        date:new Date().toLocaleDateString()
+    };
+
+    orders.push(order);
+
+    cart = [];
+
+    saveData();
+    displayCart();
+    displayOrders();
+
+    alert("Order placed successfully!");
+}
+
+
+// LOGIN
+
+function loginUser() {
+
+    let name = document.getElementById("userName").value.trim();
+    let role = document.getElementById("userRole").value;
+
+    if(name === "") {
+        alert("Please enter your name.");
+        return;
+    }
+
+    currentUser = {
+        name:name,
+        role:role
+    };
+
+    saveData();
+
+    document.getElementById("loginMessage").innerText =
+        "Welcome " + name + "! Logged in as " + role;
+
+    if(role === "Farmer") {
+        document.getElementById("farmer").classList.remove("hidden");
+        displayFarmerProducts();
+    } else {
+        document.getElementById("farmer").classList.add("hidden");
+    }
+
+    displayOrders();
+}
+
+
+// ADD PRODUCT
+
+function addProduct() {
+
+    if(!currentUser || currentUser.role !== "Farmer") {
+        alert("Farmer login required.");
+        return;
+    }
+
+    let name = document.getElementById("newName").value.trim();
+    let price = Number(document.getElementById("newPrice").value);
+    let category = document.getElementById("newCategory").value;
+    let emoji = document.getElementById("newEmoji").value.trim();
+
+    if(name === "" || price <= 0) {
+        alert("Enter a valid product name and price.");
+        return;
+    }
+
+    let newProduct = {
+        id:Date.now(),
+        name:name,
+        price:price,
+        category:category,
+        emoji:emoji || "🌱"
+    };
+
+    products.push(newProduct);
+
+    saveData();
+    displayProducts();
+    displayFarmerProducts();
+
+    document.getElementById("newName").value = "";
+    document.getElementById("newPrice").value = "";
+    document.getElementById("newEmoji").value = "";
+
+    alert("Product added successfully!");
+}
+
+
+// FARMER PRODUCT MANAGEMENT
+
+function displayFarmerProducts() {
+
+    let output = "";
+
+    products.forEach(function(product) {
+
+        output += `
+            <div class="dashboard-card">
+
+                <h3>${product.emoji} ${product.name}</h3>
+
+                <p>Price: ₹${product.price}</p>
+
+                <p>Category: ${product.category}</p>
+
+                <button onclick="deleteProduct(${product.id})">
+                    Delete Product
+                </button>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("farmerProducts").innerHTML = output;
+}
+
+
+// DELETE PRODUCT
+
+function deleteProduct(id) {
+
+    if(!confirm("Are you sure you want to delete this product?")) {
+        return;
+    }
+
+    products = products.filter(p => p.id !== id);
+
+    cart = cart.filter(item => item.id !== id);
+
+    saveData();
+
+    displayProducts();
+    displayCart();
+    displayFarmerProducts();
+}
+
+
+// DISPLAY ORDERS
+
+function displayOrders() {
+
+    let output = "";
+
+    let userOrders = currentUser
+        ? orders.filter(order => order.customer === currentUser.name)
+        : [];
+
+    if(userOrders.length === 0) {
+        output = "<p>No orders available.</p>";
+    }
+
+    userOrders.forEach(function(order) {
+
+        output += `
+            <div class="dashboard-card">
+
+                <h3>Order ID: ${order.id}</h3>
+
+                <p>Customer: ${order.customer}</p>
+
+                <p>Date: ${order.date}</p>
+
+                <p>Total: ₹${order.total}</p>
+
+                <p>Status: <b>${order.status}</b></p>
+
+                <h4>Products:</h4>
+
+                ${order.items.map(item =>
+                    `<p>${item.name} - ${item.quantity} kg</p>`
+                ).join("")}
+
+                <button onclick="updateOrder(${order.id})">
+                    Update Status
+                </button>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("orderList").innerHTML = output;
+}
+
+
+// UPDATE ORDER STATUS
+
+function updateOrder(id) {
+
+    if(!currentUser || currentUser.role !== "Farmer") {
+        alert("Farmer login required to update orders.");
+        return;
+    }
+
+    let order = orders.find(o => o.id === id);
+
+    if(!order) return;
+
+    let statusList = [
+        "Order Placed",
+        "Processing",
+        "Shipped",
+        "Delivered"
+    ];
+
+    let currentIndex = statusList.indexOf(order.status);
+
+    order.status = statusList[
+        (currentIndex + 1) % statusList.length
+    ];
+
+    saveData();
+    displayOrders();
+
+    alert("Order status updated!");
+}
+
+
+// CONTACT FORM
+
+function sendMessage() {
+
+    let name = document.getElementById("contactName").value.trim();
+    let email = document.getElementById("contactEmail").value.trim();
+    let message = document.getElementById("contactMessage").value.trim();
+
+    if(name === "" || email === "" || message === "") {
+        alert("Please fill all contact details.");
+        return;
+    }
+
+    if(!email.includes("@") || !email.includes(".")) {
+        alert("Please enter a valid email.");
+        return;
+    }
+
+    alert("Thank you " + name + "! Your message has been received.");
+
+    document.getElementById("contactName").value = "";
+    document.getElementById("contactEmail").value = "";
+    document.getElementById("contactMessage").value = "";
+}
+
+
+// LOGOUT
+
+function logoutUser() {
+
+    currentUser = null;
+
+    saveData();
+
+    document.getElementById("farmer").classList.add("hidden");
+
+    document.getElementById("loginMessage").innerText =
+        "You have logged out.";
+
+    displayOrders();
+}
+
+
+// INITIALIZE APPLICATION
+
+function initializeApp() {
+
+    displayProducts();
+
+    displayCart();
+
+    displayOrders();
+
+    if(currentUser) {
+
+        document.getElementById("loginMessage").innerText =
+            "Welcome back " + currentUser.name;
+
+        if(currentUser.role === "Farmer") {
+            document.getElementById("farmer").classList.remove("hidden");
+            displayFarmerProducts();
+        }
+    }
+}
+
+
+// START APPLICATION
+
+initializeApp();
+
+</script>
+
+</body>
+</html>
